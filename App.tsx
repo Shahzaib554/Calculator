@@ -1,12 +1,14 @@
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { useState } from 'react';
+import {StyleSheet, View, TextInput } from 'react-native';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+
+const [displayValue, setDisplayValue] = useState('2+5');
 
   return (
     <View style={styles.wrapper}>
-      <Text>Hello</Text>
+      <TextInput style={styles.display} value={displayValue} placeholder="Type here..." />
     </View>
   );
 } 
@@ -14,7 +16,18 @@ function App() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: 'white'
+    padding: 10,
+    backgroundColor: '#eee'
+  },
+  display: {
+    width: '100%',
+    backgroundColor: 'white',
+    height: 100,
+    borderRadius: 10,
+    textAlign: 'right',
+    padding: 10,
+    fontSize: 28,
+    color: 'black',
   }
 });
 
