@@ -1,6 +1,6 @@
 import { NewAppScreen } from '@react-native/new-app-screen';
 import { useState } from 'react';
-import {StyleSheet, View, TextInput } from 'react-native';
+import {StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 
 function App() {
 
@@ -9,6 +9,11 @@ const [displayValue, setDisplayValue] = useState('2+5');
   return (
     <View style={styles.wrapper}>
       <TextInput style={styles.display} value={displayValue} placeholder="Type here..." />
+      <View>
+        <TouchableOpacity>
+  
+        </TouchableOpacity>
+      </View>
     </View>
   );
 } 
@@ -28,7 +33,10 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 28,
     color: 'black',
-  }
+  },
+  btn: {
+    color: '#c2ffde'
+      }
 });
 
 export default App;
