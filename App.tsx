@@ -1,28 +1,46 @@
 import { NewAppScreen } from '@react-native/new-app-screen';
 import { useState } from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 
 function App() {
-
-const [displayValue, setDisplayValue] = useState('2+5');
+  const [displayValue, setDisplayValue] = useState('2+5');
 
   return (
     <View style={styles.wrapper}>
-      <TextInput style={styles.display} value={displayValue} placeholder="Type here..." />
+      <TextInput
+        style={styles.display}
+        value={displayValue}
+        placeholder="Type here..."
+      />
       <View>
-        <TouchableOpacity>
-  
+        <TouchableOpacity style={styles.btn}>
+          <Text>7</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn}>
+          <Text>8</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn}>
+          <Text>9</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn}>
+          <Text>+</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-} 
+}
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#eee'
+    backgroundColor: '#eee',
   },
   display: {
     width: '100%',
@@ -35,8 +53,12 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   btn: {
-    color: '#c2ffde'
-      }
+    height: 80,
+    width: 80,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
 });
 
 export default App;
