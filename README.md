@@ -17,7 +17,7 @@ A clean and modern calculator built with **React Native** and **TypeScript**. It
 
 ## 📸 Screenshots
 
-<a href="https://ibb.co/HQ5NC5n"><img src="https://i.ibb.co/V8fHxf2/Screenshot-2025-07-19-071422.png" alt="Screenshot-2025-07-19-071422" border="0"></a>
+<img src="https://i.ibb.co/V8fHxf2/Screenshot-2025-07-19-071422.png" alt="Screenshot-2025-07-19-071422" border="0">
 
 ---
 
