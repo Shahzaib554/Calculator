@@ -1,124 +1,162 @@
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
   TextInput,
   TouchableOpacity,
   Text,
+  StatusBar,
 } from 'react-native';
 
-function App() {
-  const [displayValue, setDisplayValue] = useState('');
+const App = () => {
+  const [displayValue, setDisplayValue] = useState<string>('');
+
+  const handlePress = (val: string) => {
+    if (displayValue === 'Error') {
+      setDisplayValue(val);
+    } else {
+      setDisplayValue(displayValue + val);
+    }
+  };
+
+  const calculateValue = () => {
+    try {
+      const result = eval(displayValue);
+      setDisplayValue(result.toString());
+    } catch (e) {
+      setDisplayValue('Error');
+    }
+  };
 
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1f1f1f" />
+      <Text style={styles.title}>Nexus Calc</Text>
+
       <TextInput
         style={styles.display}
         value={displayValue}
-        placeholder="Type here..."
+        placeholder="0"
+        placeholderTextColor="#888"
+        editable={false}
       />
-      <View style={styles.btnWrapper}>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '7');
-          }}
-          style={styles.btn}
-        >
-          <Text>7</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '8');
-          }}
-          style={styles.btn}
-        >
-          <Text>8</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '9');
-          }}
-          style={styles.btn}
-        >
-          <Text>9</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '+');
-          }}
-          style={styles.btn}
-        >
-          <Text>+</Text>
-        </TouchableOpacity>
+
+      <View style={styles.buttonRow}>
+        {['7', '8', '9', '+'].map((item) => (
+          <CalcButton key={item} label={item} onPress={() => handlePress(item)} />
+        ))}
       </View>
 
-      <View style={styles.btnWrapper}>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '4');
-          }}
-          style={styles.btn}
-        >
-          <Text>4</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '5');
-          }}
-          style={styles.btn}
-        >
-          <Text>5</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '6');
-          }}
-          style={styles.btn}
-        >
-          <Text>6</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setDisplayValue(displayValue + '-');
-          }}
-          style={styles.btn}
-        >
-          <Text>-</Text>
-        </TouchableOpacity>
+      <View style={styles.buttonRow}>
+        {['4', '5', '6', '-'].map((item) => (
+          <CalcButton key={item} label={item} onPress={() => handlePress(item)} />
+        ))}
       </View>
+
+      <View style={styles.buttonRow}>
+        {['1', '2', '3', '*'].map((item) => (
+          <CalcButton key={item} label={item === '*' ? '×' : item} onPress={() => handlePress(item)} />
+        ))}
+      </View>
+
+      <View style={styles.buttonRow}>
+        <CalcButton label="C" onPress={() => setDisplayValue('')} special />
+        <CalcButton label="0" onPress={() => handlePress('0')} />
+        <CalcButton label="." onPress={() => handlePress('.')} />
+        <CalcButton label="÷" onPress={() => handlePress('/')} />
+      </View>
+
+      <TouchableOpacity style={styles.equalsBtn} onPress={calculateValue}>
+        <Text style={styles.equalsText}>=</Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
+
+type CalcButtonProps = {
+  label: string;
+  onPress: () => void;
+  special?: boolean;
+};
+
+const CalcButton = ({ label, onPress, special = false }: CalcButtonProps) => {
+  return (
+    <TouchableOpacity
+      style={[styles.button, special && styles.specialButton]}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
+      <Text style={[styles.buttonText, special && styles.specialButtonText]}>
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: '#eee',
+    backgroundColor: '#1f1f1f',
+    padding: 20,
+    justifyContent: 'flex-end',
+  },
+  title: {
+    fontSize: 26,
+    color: '#f56b6b',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
   },
   display: {
-    width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#2e2e2e',
     height: 100,
-    borderRadius: 10,
+    borderRadius: 12,
+    color: '#fff',
+    fontSize: 36,
     textAlign: 'right',
-    padding: 10,
-    fontSize: 28,
-    color: 'black',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    marginBottom: 20,
+    elevation: 4,
   },
-  btn: {
-    height: 70,
-    width: 70,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  btnWrapper: {
+  buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginVertical: 8,
+  },
+  button: {
+    height: 75,
+    width: 75,
+    backgroundColor: '#3b3b3b',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
+  },
+  buttonText: {
+    fontSize: 24,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  specialButton: {
+    backgroundColor: '#ff4d4d',
+  },
+  specialButtonText: {
+    color: '#fff',
+  },
+  equalsBtn: {
+    backgroundColor: '#f56b6b',
+    height: 80,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 12,
+    elevation: 5,
+  },
+  equalsText: {
+    fontSize: 32,
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 
