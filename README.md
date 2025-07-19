@@ -17,7 +17,8 @@ A clean and modern calculator built with **React Native** and **TypeScript**. It
 
 ## 📸 Screenshots
 
-<img src="https://i.ibb.co/V8fHxf2/Screenshot-2025-07-19-071422.png" alt="Screenshot-2025-07-19-071422" border="0">
+<img src="https://files.chatgpt.com/file-J2fSpCwSa69o4MRyxp1KE5/Screenshot%202025-07-19%20071422.png" alt="Nexus Calculator Screenshot" width="300" />
+
 
 ---
 
